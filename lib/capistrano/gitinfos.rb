@@ -2,6 +2,7 @@ require 'json'
 require 'yaml'
 require 'inifile'
 require 'nokogiri'
+require 'active_support/time'
 require "capistrano/gitinfos/version"
 require "capistrano/gitinfos/gitinfos"
 

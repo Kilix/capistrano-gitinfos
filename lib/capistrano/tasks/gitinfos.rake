@@ -1,11 +1,15 @@
 def getGitInfos(commit)
-    rawCommitDate = capture(:git, "log -1 --pretty=tformat:'{%ci}' --no-color --date=local #{commit}").slice(/\{(.+)\}/,1)
+    rawCommitDate = capture(:git, "log -1 --pretty=tformat:'{%ci}' --no-color --date=local #{commit}").slice(/\{(.+)\}/,1).sub(/\s/, 'T').sub(/\s/, '')
     abbrevCommit = capture(:git, "rev-list --max-count=1 --abbrev-commit #{commit}")
     fullCommit = capture(:git, "rev-list --max-count=1 --no-abbrev-commit #{commit}")
     version = capture(:git, "describe --tag #{commit}")
 
-    deployDate = DateTime.strptime(release_timestamp, "%Y%m%d%H%M%S")
-    commitDate = DateTime.strptime(rawCommitDate, "%Y-%m-%d %H:%M:%S %z")
+    if version.empty?
+        version = abbrevCommit
+    end
+
+    deployDate = Time.strptime(release_timestamp, "%Y%m%d%H%M%S").in_time_zone
+    commitDate = Time.strptime(rawCommitDate, "%Y-%m-%dT%H:%M:%S%z").in_time_zone
 
     return {
         'version' => version,
