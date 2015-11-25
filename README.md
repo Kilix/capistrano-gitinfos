@@ -39,6 +39,72 @@ set :gitinfos_format, "json"
 set :gitinfos_file, "version"
 ```
 
+After deploying, you will get a file with the following informations:
+
+* full_commit : git full SHA1 commit
+* abbrev_commit : git abbrev SHA1 commit
+* version : the result of `git describe --tags` command if possible, otherwise the abbrev commit
+* commit_date : commit date in IS08601 format (with timezone)
+* commit_timestamp : commit date in unix timestamp format
+* deploy_date : capistrano deploy date in IS08601 format (with timezone)
+* deploy_timestamp : capistrano deploy date in unix timestamp format
+
+e.g. :
+
+* version.json
+
+```json
+{
+    "commit_date": "2015-11-25T16:25:50+0000",
+    "full_commit": "576e27c6ebcef6987f143e1468a815eaf2eb8bc1",
+    "version": "v0.8.0-268-g576e27c",
+    "commit_timestamp": "1448468750",
+    "deploy_date": "2015-11-25T16:45:39+0000",
+    "deploy_timestamp": "1448469939",
+    "abbrev_commit": "576e27c"
+}
+```
+
+* version.ini
+
+```ini
+[app_version]
+commit_date = 2015-11-25T16:25:50+0000
+full_commit = 576e27c6ebcef6987f143e1468a815eaf2eb8bc1
+version = v0.8.0-268-g576e27c
+commit_timestamp = 1448468750
+deploy_date = 2015-11-25T16:45:43+0000
+deploy_timestamp = 1448469943
+abbrev_commit = 576e27c
+```
+
+* version.yml
+
+```yml
+abbrev_commit: 576e27c
+commit_date: 2015-11-25T16:25:50+0000
+commit_timestamp: '1448468750'
+deploy_date: 2015-11-25T16:45:41+0000
+deploy_timestamp: '1448469941'
+full_commit: 576e27c6ebcef6987f143e1468a815eaf2eb8bc1
+version: v0.8.0-268-g576e27c
+```
+
+* version.xml
+
+```xml
+<?xml version='1.0' encoding='UTF-8'?>
+<app_version>
+  <commit_date>2015-11-25T16:25:50+0000</commit_date>
+  <full_commit>576e27c6ebcef6987f143e1468a815eaf2eb8bc1</full_commit>
+  <version>v0.8.0-268-g576e27c</version>
+  <commit_timestamp>1448468750</commit_timestamp>
+  <deploy_date>2015-11-25T16:45:48+0000</deploy_date>
+  <deploy_timestamp>1448469948</deploy_timestamp>
+  <abbrev_commit>576e27c</abbrev_commit>
+</app_version>
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/kilix/capistrano-gitinfos.
