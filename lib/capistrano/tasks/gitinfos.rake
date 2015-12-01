@@ -25,8 +25,19 @@ end
 def formatGitInfos(infos, format)
     case format
         when "yml"
-            return YAML.dump(infos)
-
+            # TODO find option to force quoting to prevent abbrev_commit to be read as float in YAML
+            # return YAML.dump(infos)
+            return <<-YAML
+---
+version: '#{infos['version']}'
+abbrev_commit: '#{infos['abbrev_commit']}'
+full_commit: '#{infos['full_commit']}'
+commit_date: '#{infos['commit_date']}'
+commit_timestamp: '#{infos['commit_timestamp']}'
+deploy_date: '#{infos['deploy_date']}'
+deploy_timestamp: '#{infos['deploy_timestamp']}'
+YAML
+    
         when "xml"
             builder = Nokogiri::XML::Builder.new do |xml|
 
