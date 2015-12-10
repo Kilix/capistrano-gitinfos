@@ -12,7 +12,7 @@ def getGitInfos(commit)
         version = abbrevCommit
     end
 
-    deployDate = Time.strptime(release_timestamp, "%Y%m%d%H%M%S").in_time_zone
+    deployDate = Time.strptime(release_timestamp, "%Y%m%d%H%M%S")
     commitDate = Time.strptime(rawCommitDate, "%Y-%m-%dT%H:%M:%S%z").in_time_zone
 
     return {
