@@ -2,7 +2,11 @@ def getGitInfos(commit)
     rawCommitDate = capture(:git, "log -1 --pretty=tformat:'{%ci}' --no-color --date=local #{commit}").slice(/\{(.+)\}/,1).sub(/\s/, 'T').sub(/\s/, '')
     abbrevCommit = capture(:git, "rev-list --max-count=1 --abbrev-commit #{commit}")
     fullCommit = capture(:git, "rev-list --max-count=1 --no-abbrev-commit #{commit}")
-    version = capture(:git, "describe --tag #{commit}")
+    begin
+        version = capture(:git, "describe --tag #{commit}")
+    rescue SSHKit::Runner::ExecuteError => e
+        version = abbrevCommit
+    end
 
     if version.empty?
         version = abbrevCommit
@@ -37,7 +41,7 @@ commit_timestamp: '#{infos['commit_timestamp']}'
 deploy_date: '#{infos['deploy_date']}'
 deploy_timestamp: '#{infos['deploy_timestamp']}'
 YAML
-    
+
         when "xml"
             builder = Nokogiri::XML::Builder.new do |xml|
 
