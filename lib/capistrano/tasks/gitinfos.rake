@@ -5,6 +5,7 @@ def getGitInfos(commit)
     begin
         version = capture(:git, "describe --tag #{commit}")
     rescue SSHKit::Runner::ExecuteError => e
+        puts 'No tag in the Git repository'
         version = abbrevCommit
     end
 
@@ -12,8 +13,8 @@ def getGitInfos(commit)
         version = abbrevCommit
     end
 
-    deployDate = Time.strptime(release_timestamp, "%Y%m%d%H%M%S")
-    commitDate = Time.strptime(rawCommitDate, "%Y-%m-%dT%H:%M:%S%z").in_time_zone
+    deployDate = Time.strptime(release_timestamp+'UTC', "%Y%m%d%H%M%S%z").utc
+    commitDate = Time.strptime(rawCommitDate, "%Y-%m-%dT%H:%M:%S%z").utc
 
     return {
         'version' => version,
