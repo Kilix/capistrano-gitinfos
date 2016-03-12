@@ -2,13 +2,7 @@ def getGitInfos(commit)
     rawCommitDate = capture(:git, "log -1 --pretty=tformat:'{%ci}' --no-color --date=local #{commit}").slice(/\{(.+)\}/,1).sub(/\s/, 'T').sub(/\s/, '')
     abbrevCommit = capture(:git, "rev-list --max-count=1 --abbrev-commit #{commit}")
     fullCommit = capture(:git, "rev-list --max-count=1 --no-abbrev-commit #{commit}")
-    begin
-        version = capture(:git, "describe --tag #{commit}")
-    rescue SSHKit::Runner::ExecuteError => e
-        puts 'No tag in the Git repository'
-        version = abbrevCommit
-    end
-
+    version = capture(:git, "describe --tag --always #{commit}")
     if version.empty?
         version = abbrevCommit
     end
