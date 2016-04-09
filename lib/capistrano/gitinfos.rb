@@ -1,10 +1,7 @@
-require 'json'
-require 'yaml'
-require 'inifile'
-require 'nokogiri'
 require 'active_support/time'
 require "capistrano/gitinfos/version"
 require "capistrano/gitinfos/gitinfos"
+require "capistrano/gitinfos/format"
 
 load File.expand_path("../tasks/deploy.rake", __FILE__)
 

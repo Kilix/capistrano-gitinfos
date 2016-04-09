@@ -9,5 +9,6 @@ set :gitinfos_format, "json"
 # then the final path is <release_path>/config/version.yml
 set :gitinfos_file, "version"
 
-# XML root tag or INI section (only for XML or INI format)
-set :gitinfos_section, "app_version"
+# section name : "namespace" in the config file which will contains git commit informations
+# if the namespace contains dots, it will be translated as nested path in JSON, YML and XML
+set :gitinfos_section, ''
