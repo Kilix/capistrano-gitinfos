@@ -9,8 +9,8 @@ before_install: gem install bundler
 
 script: bundle exec rspec
 
-deploy:
-  provider: rubygems
-  api_key: ""
-  on:
-    tags: true
+# deploy:
+#   provider: rubygems
+#   api_key: ""
+#   on:
+#     tags: true

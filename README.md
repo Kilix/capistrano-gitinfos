@@ -1,8 +1,12 @@
-# Capistrano-gitinfos
+Capistrano-gitinfos
+===================
+
+[![Build Status](https://travis-ci.org/Kilix/capistrano-gitinfos.svg?branch=master)](https://travis-ci.org/Kilix/capistrano-gitinfos)
 
 Capistrano 3 plugin to fetch git commit additional informations and store them in an INI/XML/YAML/JSON file when deploying
 
-## Installation
+Installation
+------------
 
 Add this line to your application's Gemfile:
 
@@ -18,7 +22,8 @@ Or install it yourself as:
 
     $ gem install capistrano-gitinfos
 
-## Usage
+Usage
+-----
 
 ```ruby
 require 'capistrano/gitinfos'
@@ -171,10 +176,12 @@ with `:gitinfos_section` = 'parameters.git'
 </parameters>
 ```
 
-## Contributing
+Contributing
+------------
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/kilix/capistrano-gitinfos.
 
-## License
+License
+-------
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
